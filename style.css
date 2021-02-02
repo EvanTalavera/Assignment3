@@ -1,0 +1,82 @@
+body{
+    background-color: #283618;
+}
+.button-link{
+    text-decoration: none;
+    color: black;
+}
+
+.mainbody{
+    background-color: #FEFAE0;
+    display: flex;
+    margin-top: 132px;
+    height: 948px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.title{
+    font-size: 108px;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Lucida Sans Typewriter;
+    width: 350px;
+    text-align: center;
+}
+
+.playbutton{
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    border-radius: 10px;
+    font-size: 48px;
+    font-family: Lucida Sans Typewriter;
+    color: white;
+    background-color: #283618;
+}
+
+.header1{
+    background-color: #FEFAE0;
+    position: absolute;
+    top: 57px;
+    width: 340px;
+    height: 103px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: Lucida Sans Typewriter;
+}
+
+.header2{
+    background-color: #F1ECD0;
+    position: absolute;
+    width: 351px;
+    height: 96px;
+    left: 284px;
+    top: 36px;
+    text-align: center;
+    font-family: Lucida Sans Typewriter;
+    border-radius: 10px 10px 0 0;
+}
+
+.header3{
+    background-color: #D6D2B8;
+    position: absolute;
+    width: 368px;
+	height: 115px;
+	left: 573px;
+    top: 17px;
+    text-align: center;
+    font-family: Lucida Sans Typewriter;
+    border-radius: 10px 10px 0 0;
+}
+
+.headertext1{
+    margin: 36px;
+}
+
+.headertext2{
+    margin: 48px;
+}
