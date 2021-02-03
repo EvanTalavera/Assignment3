@@ -10,7 +10,8 @@ body{
     background-color: #FEFAE0;
     display: flex;
     margin-top: 132px;
-    height: 948px;
+    margin-bottom: 0;
+    height: 785px;
     flex-direction: column;
     justify-content: center;
     padding: 10px;
@@ -42,8 +43,8 @@ body{
     background-color: #FEFAE0;
     position: absolute;
     top: 57px;
-    width: 340px;
-    height: 103px;
+    width: 300px;
+    height: 100px;
     border-radius: 10px;
     text-align: center;
     font-family: Lucida Sans Typewriter;
@@ -52,10 +53,10 @@ body{
 .header2{
     background-color: #F1ECD0;
     position: absolute;
-    width: 351px;
-    height: 96px;
-    left: 284px;
-    top: 36px;
+    width: 340px;
+    height: 90px;
+    left: 270px;
+    top: 45px;
     text-align: center;
     font-family: Lucida Sans Typewriter;
     border-radius: 10px 10px 0 0;
@@ -65,12 +66,23 @@ body{
     background-color: #D6D2B8;
     position: absolute;
     width: 368px;
-	height: 115px;
+	height: 100px;
 	left: 573px;
-    top: 17px;
+    top: 33px;
     text-align: center;
     font-family: Lucida Sans Typewriter;
     border-radius: 10px 10px 0 0;
+}
+
+.header4{
+    background-color: #F1ECD0;
+    position: absolute;
+    top: 57px;
+    width: 300px;
+    height: 76px;
+    border-radius:  10px 10px 0 0;
+    text-align: center;
+    font-family: Lucida Sans Typewriter;
 }
 
 .headertext1{
@@ -79,4 +91,16 @@ body{
 
 .headertext2{
     margin: 48px;
+}
+
+.game{
+    background-color:#DDA15E;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gametitle{
+    text-align: center;
+    font-family: Lucida Sans Typewriter;
+    margin-top: 1px;
 }
