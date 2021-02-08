@@ -4,31 +4,54 @@ var ctx = c.getContext('2d');
 
 var health = 800;
 var fuel = 100;
-var tankX = 25;
-var tankY = 530;
+
+var playerX = 25
+var playerY = 525
+var playerWidth = 50
+var playerHeight = 50
+var playerFrameX = 0
+var playerFrameY = 0
+
+
+const playerSprite = new Image();
+playerSprite.src ="spritePlaceholder.png";
+
+function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
+    ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
+}
     
 $('html').keydown(function(e){
     eraseTank();
 
     if(e.key == "w"){
-        if (tankY > 20) tankY -= 102; fuel-=20; 
-        console.log(fuel);
+        if (playerY > 20) playerY -= 102; 
+        fuel-=20; 
+        playerFrameY=3;
+         
     }
 
     else if(e.key == "s"){
-        if (tankY < 530) tankY += 102;
+        if (playerY < 500) playerY += 102; 
+        fuel-=20; 
+        playerFrameY=0;
     }
     
     else if(e.key == "a"){
-        if(tankX >25 ) tankX -=100;
+        if(playerX >25 ) playerX -=100; 
+        fuel-=20; 
+        playerFrameY=1;
     }
 
     else if(e.key == "d"){
-        if(tankX < 1025) tankX += 100;
-        console.log(tankX);
+        if(playerX < 1025) playerX += 100; 
+        fuel-=20; 
+        playerFrameY=2;
     }
     
-    drawTank(); 
+    drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
+        playerX,playerY, playerWidth, playerHeight);
+    fuelGauge()
+    
 })
    
 function fuelGauge(){
@@ -38,15 +61,15 @@ function fuelGauge(){
 
 function eraseTank(){
     ctx.fillStyle = "#DDA15E";
-    ctx.fillRect(tankX,tankY,50,50);
-    ctx.moveTo(tankX,tankY);
+    ctx.fillRect(playerX,playerY,50,50);
+    ctx.moveTo(playerX,playerY);
 }
    
-function drawTank(){
+/*function drawTank(){
     ctx.fillStyle = "#283618";
-    ctx.fillRect(tankX,tankY,50,50);
-    ctx.moveTo(tankX,tankY);
-}
+    ctx.fillRect(playerX,playerY,50,50);
+    ctx.moveTo(playerX,playerY);
+}*/
 
 function healthBar(){
     ctx.fillStyle = "green";
@@ -86,6 +109,7 @@ function drawGame(){
 $(function(){
     drawGame();
     healthBar();
-    drawTank();
+    drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
+        playerX,playerY, playerWidth, playerHeight);
     fuelGauge();
 });
