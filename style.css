@@ -109,8 +109,8 @@ body{
 .wiki-container{
 
     position: absolute;
-    top:30%;
-    left:22%;
+    top:20%;
+    left:25%;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -125,17 +125,17 @@ body{
 
 .wiki-entry{
     width:400px;
-    height: 600px;
+    height: 700px;
     padding: 10px;
     margin: 10px;
     background-color: #cdc8a8;
     text-align: center;
-
+    border-radius: 10px;;
 }
 
 .image-placeholder{
     width: 320px;
-    height: 180px;
+    height: 320px;
     background-color: #c3be98;
     position:relative;
     margin-left: 40px;
@@ -146,5 +146,26 @@ body{
 
 .tank-info{
     list-style-type: none;
+    font-family: Lucida Sans Typewriter;
+    font-size: 20px;
+    padding: 10px;
+}
+
+table{ 
+    width: 70%;
+    margin-top: -500px;
+    margin-left: auto;
+    margin-right:auto;
+    font-family: Lucida Sans Typewriter;
+    font-size: 20px;
+    border-collapse: collapse;
+}
+
+table, th, td{
+    border: 3px solid black;
+}
+
+li{
+    padding: 10px;
 }
 
