@@ -83,12 +83,6 @@ function eraseTank(){
     ctx.fillRect(playerX,playerY,50,50);
     ctx.moveTo(playerX,playerY);
 }
-   
-/*function drawTank(){
-    ctx.fillStyle = "#283618";
-    ctx.fillRect(playerX,playerY,50,50);
-    ctx.moveTo(playerX,playerY);
-}*/
 
 function healthBar(){
     ctx.fillStyle = "green";
