@@ -3,8 +3,7 @@ var c = document.getElementById("gameCanvas");
 var ctx = c.getContext('2d');
 
 var health = 800;
-var fuel = 100;
-
+var playerFuel = 20;
 var playerX = 25
 var playerY = 525
 var playerWidth = 50
@@ -22,41 +21,61 @@ function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinatio
     
 $('html').keydown(function(e){
     eraseTank();
+    clearFuelGauge()
 
     if(e.key == "w"){
         if (playerY > 20) playerY -= 102; 
-        fuel-=20; 
+        playerFuel-=1; 
         playerFrameY=3;
+        console.log(playerFuel)
          
     }
 
     else if(e.key == "s"){
         if (playerY < 500) playerY += 102; 
-        fuel-=20; 
+        playerFuel-=1; 
         playerFrameY=0;
+        console.log(playerFuel)
     }
     
     else if(e.key == "a"){
         if(playerX >25 ) playerX -=100; 
-        fuel-=20; 
+        playerFuel-=1; 
         playerFrameY=1;
+        console.log(playerFuel)
     }
 
     else if(e.key == "d"){
         if(playerX < 1025) playerX += 100; 
-        fuel-=20; 
+        playerFuel-=1; 
         playerFrameY=2;
+        console.log(playerFuel)
     }
     
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
         playerX,playerY, playerWidth, playerHeight);
-    fuelGauge()
+    fuelGauge(playerFuel)
     
 })
    
 function fuelGauge(){
-    ctx.fillStyle="yellow";
-    ctx.fillRect(100,640,(fuel/100)*250,40);
+    for (i = 0; i < playerFuel; i +=1)
+    {
+        ctx.fillStyle="yellow";
+        ctx.fillRect(100 + (10*i), 640, 20,40)
+
+    };
+
+}
+
+function clearFuelGauge(){
+    for (i = 0; i < 20; i +=1)
+    {
+        ctx.fillStyle="grey";
+        ctx.fillRect(100 + (10*i), 640, 20,40)
+
+    };
+
 }
 
 function eraseTank(){
