@@ -4,12 +4,13 @@ var ctx = c.getContext('2d');
 
 var health = 800;
 var playerFuel = 20;
-var playerX = 25
-var playerY = 525
-var playerWidth = 50
-var playerHeight = 50
-var playerFrameX = 0
-var playerFrameY = 0
+var playerX = 25;
+var playerY = 525;
+var playerWidth = 50;
+var playerHeight = 50;
+var playerFrameX = 0;
+var playerFrameY = 0;
+
 
 
 const playerSprite = new Image();
@@ -197,6 +198,16 @@ function drawGame(){
 
 }
 
+function loadingTime(){
+    var loadingTime = setTimeout(loadGame , 2800);
+}
+
+function loadGame(){
+    $(".game").show();
+    $(".gametitle").show();
+    $(".loading-bar").hide();
+    $(".loading-text").hide();
+}
 
 
 $(function(){
@@ -205,4 +216,10 @@ $(function(){
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
         playerX,playerY, playerWidth, playerHeight);
     fuelGauge();
+    $(".game").hide();
+    $(".gametitle").hide();
+    $(".loading-bar").show();
+    $(".loading-text").show();
+    loadingTime();
+    
 });
