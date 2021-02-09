@@ -18,7 +18,9 @@ playerSprite.src ="spritePlaceholder.png";
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
 }
-    
+
+
+//Player movement section    
 $('html').keydown(function(e){
     eraseTank();
     clearFuelGauge()
@@ -57,6 +59,71 @@ $('html').keydown(function(e){
     fuelGauge(playerFuel)
     
 })
+
+//End of player movement section
+
+//Player projectile section
+class Projectile {
+    constructor(x, y, radius, color, velocity){
+        this.x = x
+        this.y = y
+        this.radius = radius
+        this.color = color
+        this.velocity = velocity
+    }
+
+    draw(){
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2, false)
+        ctx.fillStyle = this.color
+        ctx.fill()
+    }
+
+    update(){
+        this.draw()
+        this.x = this.x + this.velocity.x
+        this.y = this.y + this.velocity.y
+    }
+}
+
+const projectiles = []
+
+function animate(){
+    requestAnimationFrame(animate)
+    projectiles.forEach(projectile =>{
+        projectile.update()
+        
+    })
+
+}
+
+window.addEventListener("click",(event) => {
+
+    const angle = Math.atan2(event.clientY - playerY, event.clientX - playerX)
+
+    const velocity ={
+        x: Math.cos(angle) ,
+        y: Math.sin(angle),
+    }
+
+
+    projectiles.push(new Projectile(
+        playerX,
+        playerY,
+        5,
+        "red",
+        velocity
+
+    ))
+
+
+});
+
+
+
+animate()
+
+//End of player projectile section
    
 function fuelGauge(){
     for (i = 0; i < playerFuel; i +=1)
