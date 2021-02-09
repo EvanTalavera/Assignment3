@@ -26,7 +26,7 @@ $('html').keydown(function(e){
     clearFuelGauge()
 
     if(e.key == "w"){
-        if (playerY > 20 && playerFuel >= 1) playerY -= 102; 
+        if (playerY > 20 && playerFuel >= 1) playerY -= 100; 
         playerFuel-=1; 
         playerFrameY=3;
         console.log(playerFuel)
@@ -35,7 +35,7 @@ $('html').keydown(function(e){
     }
 
     else if(e.key == "s"){
-        if (playerY < 500 && playerFuel >= 1) playerY += 102; 
+        if (playerY < 500 && playerFuel >= 1) playerY += 100; 
         playerFuel-=1; 
         playerFrameY=0;
         console.log(playerFuel)
@@ -106,16 +106,18 @@ function animate(){
 }
 
 window.addEventListener("click",(event) => {
-
-    console.log(event.clientY)
     console.log(event.clientX)
+    console.log(event.clientY)
 
-    const angle = Math.atan2((event.clientY) - (playerY+75), (event.clientX) - (playerX+75))
+
+
+    const angle = Math.atan2((event.clientY) - (playerY+25), (event.clientX) - (playerX+25))
 
     const velocity ={
         x: Math.cos(angle) ,
         y: Math.sin(angle),
     }
+    console.log(velocity)
 
 
     projectiles.push(new Projectile(
@@ -171,7 +173,7 @@ function healthBar(){
 function drawGame(){
     ctx.beginPath();
     ctx.fillStyle = "grey";
-    ctx.fillRect(0,600,1110,100);
+    ctx.fillRect(0,600,1100,100);
     ctx.stroke();
 
     for (i = 100; i < 600; i += 100) 
@@ -181,7 +183,7 @@ function drawGame(){
 	    ctx.stroke();
     }
     
-    for (i = 100; i < 1110; i += 100) 
+    for (i = 100; i < 1100; i += 100) 
     {
 	    ctx.moveTo(i, 0);
 	    ctx.lineTo(i,600);

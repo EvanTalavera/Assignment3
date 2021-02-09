@@ -169,3 +169,7 @@ li{
     padding: 10px;
 }
 
+#game_body{
+    margin-left:0;
+    margin-right:0;
+}
