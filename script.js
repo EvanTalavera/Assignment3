@@ -24,7 +24,7 @@ $('html').keydown(function(e){
     clearFuelGauge()
 
     if(e.key == "w"){
-        if (playerY > 20) playerY -= 102; 
+        if (playerY > 20 && playerFuel >= 1) playerY -= 102; 
         playerFuel-=1; 
         playerFrameY=3;
         console.log(playerFuel)
@@ -32,21 +32,21 @@ $('html').keydown(function(e){
     }
 
     else if(e.key == "s"){
-        if (playerY < 500) playerY += 102; 
+        if (playerY < 500 && playerFuel >= 1) playerY += 102; 
         playerFuel-=1; 
         playerFrameY=0;
         console.log(playerFuel)
     }
     
     else if(e.key == "a"){
-        if(playerX >25 ) playerX -=100; 
+        if(playerX >25 && playerFuel >= 1 ) playerX -=100; 
         playerFuel-=1; 
         playerFrameY=1;
         console.log(playerFuel)
     }
 
     else if(e.key == "d"){
-        if(playerX < 1025) playerX += 100; 
+        if(playerX < 1025 && playerFuel >= 1) playerX += 100; 
         playerFuel-=1; 
         playerFrameY=2;
         console.log(playerFuel)
