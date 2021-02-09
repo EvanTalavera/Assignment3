@@ -15,8 +15,11 @@ var playerFrameY = 0;
 
 const playerSprite = new Image();
 const town = new Image();
+const enemyTank = new Image();
+
 playerSprite.src ="playerSprite.png";
 town.src = "Town.png";
+enemyTank.src = "Enemy Tank.png";
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
@@ -200,7 +203,7 @@ function drawGame(){
     ctx.fillText("Health:",500,630);
     ctx.fillText("Fuel:", 100,630);
     createTowns(town);
-
+    createEnemy(enemyTank);
 }
 
 function createTowns(){
@@ -209,8 +212,29 @@ function createTowns(){
     ctx.drawImage(town,400,400,100,100);
     ctx.drawImage(town,600,200,100,100);
     ctx.drawImage(town,800,0,100,100);
+    ctx.drawImage(town,900,300,100,100);
     ctx.drawImage(town,1000,500,100,100);
-    console.log("towns created!");
+   
+}
+
+function createEnemy(){
+    ctx.drawImage(enemyTank,25,325,50,50);
+    ctx.drawImage(enemyTank,25,25,50,50);
+    ctx.drawImage(enemyTank,125,225,50,50);
+    ctx.drawImage(enemyTank,125,425,50,50);
+    ctx.drawImage(enemyTank,225,525,50,50);
+    ctx.drawImage(enemyTank,325,25,50,50);
+    ctx.drawImage(enemyTank,425,225,50,50);
+    ctx.drawImage(enemyTank,525,25,50,50);
+    ctx.drawImage(enemyTank,525,525,50,50);
+    ctx.drawImage(enemyTank,625,325,50,50);
+    ctx.drawImage(enemyTank,725,425,50,50);
+    ctx.drawImage(enemyTank,725,125,50,50);
+    ctx.drawImage(enemyTank,825,225,50,50);
+    ctx.drawImage(enemyTank,925,125,50,50);
+    ctx.drawImage(enemyTank,925,425,50,50);
+    ctx.drawImage(enemyTank,1025,25,50,50);
+    ctx.drawImage(enemyTank,1025,325,50,50);
 }
 
 function loadingTime(){
