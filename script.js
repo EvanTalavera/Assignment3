@@ -26,7 +26,7 @@ $('html').keydown(function(e){
     clearFuelGauge()
 
     if(e.key == "w"){
-        if (playerY > 20 && playerFuel >= 1) playerY -= 100; 
+        if (playerY > 25 && playerFuel >= 1) playerY -= 100; 
         playerFuel-=1; 
         playerFrameY=3;
         console.log(playerFuel)
