@@ -14,7 +14,9 @@ var playerFrameY = 0;
 
 
 const playerSprite = new Image();
+const town = new Image();
 playerSprite.src ="playerSprite.png";
+town.src = "Town.png";
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
@@ -31,8 +33,7 @@ $('html').keydown(function(e){
         playerFuel-=1; 
         playerFrameY=3;
         console.log(playerFuel)
-        
-         
+        console.log(playerX,playerY) 
     }
 
     else if(e.key == "s"){
@@ -40,6 +41,7 @@ $('html').keydown(function(e){
         playerFuel-=1; 
         playerFrameY=0;
         console.log(playerFuel)
+        console.log(playerX,playerY) 
     }
     
     else if(e.key == "a"){
@@ -47,6 +49,7 @@ $('html').keydown(function(e){
         playerFuel-=1; 
         playerFrameY=1;
         console.log(playerFuel)
+        console.log(playerX,playerY) 
     }
 
     else if(e.key == "d"){
@@ -54,6 +57,7 @@ $('html').keydown(function(e){
         playerFuel-=1; 
         playerFrameY=2;
         console.log(playerFuel)
+        console.log(playerX,playerY) 
     }
     
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
@@ -195,7 +199,18 @@ function drawGame(){
     ctx.font = "20px  Lucida Sans Typewriter ";
     ctx.fillText("Health:",500,630);
     ctx.fillText("Fuel:", 100,630);
+    createTowns(town);
 
+}
+
+function createTowns(){
+    ctx.drawImage(town,0,200,100,100);
+    ctx.drawImage(town,200,100,100,100);
+    ctx.drawImage(town,400,400,100,100);
+    ctx.drawImage(town,600,200,100,100);
+    ctx.drawImage(town,800,0,100,100);
+    ctx.drawImage(town,1000,500,100,100);
+    console.log("towns created!");
 }
 
 function loadingTime(){
