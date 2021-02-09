@@ -13,7 +13,7 @@ var playerFrameY = 0
 
 
 const playerSprite = new Image();
-playerSprite.src ="spritePlaceholder.png";
+playerSprite.src ="playerSprite.png";
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
