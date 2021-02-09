@@ -30,6 +30,7 @@ $('html').keydown(function(e){
         playerFuel-=1; 
         playerFrameY=3;
         console.log(playerFuel)
+        
          
     }
 
@@ -90,6 +91,13 @@ const projectiles = []
 
 function animate(){
     requestAnimationFrame(animate)
+    ctx.clearRect(0,0, c.width, c.height)
+    drawGame();
+    healthBar();
+    drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
+        playerX,playerY, playerWidth, playerHeight);
+    fuelGauge();
+
     projectiles.forEach(projectile =>{
         projectile.update()
         
@@ -99,7 +107,10 @@ function animate(){
 
 window.addEventListener("click",(event) => {
 
-    const angle = Math.atan2(event.clientY - playerY, event.clientX - playerX)
+    console.log(event.clientY)
+    console.log(event.clientX)
+
+    const angle = Math.atan2((event.clientY) - (playerY+75), (event.clientX) - (playerX+75))
 
     const velocity ={
         x: Math.cos(angle) ,
@@ -108,8 +119,8 @@ window.addEventListener("click",(event) => {
 
 
     projectiles.push(new Projectile(
-        playerX,
-        playerY,
+        playerX+25,
+        playerY+25,
         5,
         "red",
         velocity
