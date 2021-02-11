@@ -169,10 +169,7 @@ li{
     padding: 10px;
 }
 
-#game_body{
-    margin-left:0;
-    margin-right:0;
-}
+
 
 .loading-bar{
    margin-left: auto;
@@ -185,3 +182,83 @@ li{
     font-family: Lucida Sans Typewriter;
     font-size: 30px;
 }
+
+.game-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-left: 30px;
+    padding-right:30px;
+}
+
+.legend{
+    background-color: #B7B7A4;
+    margin-top:100px;
+    font-family: Lucida Sans Typewriter;
+    padding: 10px;
+    width:300px;
+    height: 500px; 
+    font-size: 1.5em;
+    text-align:center;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+.legend-list{
+    padding: 20px;
+}
+
+.condition-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly ;
+}
+
+.win-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #B7B7A4;
+    width: 200px;
+    height: 200px;
+    font-family: Lucida Sans Typewriter;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+.lose-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #B7B7A4;
+    width: 200px;
+    height: 200px;
+    font-family: Lucida Sans Typewriter;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+
+
+.container-button{
+    width: 190px;
+   margin:auto;
+   border-radius: 5px;
+   border:none;
+}
+
+.container-button:hover{
+    background-color: white;
+}
+
+.legend-image{
+    width: 30px;
+    height: 30px;
+}
+
+.legend-image-town{
+    width:50px;
+    height:50px;
+}
+
+

@@ -16,10 +16,14 @@ var playerFrameY = 0;
 const playerSprite = new Image();
 const town = new Image();
 const enemyTank = new Image();
+const wrench = new Image();
+const ammo = new Image();
 
 playerSprite.src ="playerSprite.png";
 town.src = "Town.png";
 enemyTank.src = "Enemy Tank.png";
+wrench.src = "Wrench.png";
+ammo.src = "Ammo.png"
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
@@ -204,11 +208,14 @@ function drawGame(){
     ctx.fillText("Fuel:", 100,630);
     createTowns(town);
     createEnemy(enemyTank);
+    createHealth(wrench);
+    createAmmo(ammo);
 }
 
 function createTowns(){
     ctx.drawImage(town,0,200,100,100);
     ctx.drawImage(town,200,100,100,100);
+    ctx.drawImage(town,300,200,100,100);
     ctx.drawImage(town,400,400,100,100);
     ctx.drawImage(town,600,200,100,100);
     ctx.drawImage(town,800,0,100,100);
@@ -237,12 +244,39 @@ function createEnemy(){
     ctx.drawImage(enemyTank,1025,325,50,50);
 }
 
+function createHealth(){
+    ctx.drawImage(wrench,25,125,50,50);
+    ctx.drawImage(wrench,125,25,50,50);
+    ctx.drawImage(wrench,225,225,50,50);
+    ctx.drawImage(wrench,325,425,50,50);
+    ctx.drawImage(wrench,425,125,50,50);
+    ctx.drawImage(wrench,525,325,50,50 );
+    ctx.drawImage(wrench,625,25,50,50);
+    ctx.drawImage(wrench,725,225,50,50);
+    ctx.drawImage(wrench,825,525,50,50);
+    ctx.drawImage(wrench,925,25,50,50);
+    ctx.drawImage(wrench,1025,425,50,50);
+}
+
+function createAmmo(){
+    ctx.drawImage(ammo,125,325,50,50);
+    ctx.drawImage(ammo,225,25,50,50);
+    ctx.drawImage(ammo,325,525,50,50);
+    ctx.drawImage(ammo,425,25,50,50);
+    ctx.drawImage(ammo,525,225,50,50);
+    ctx.drawImage(ammo,625,425,50,50);
+    ctx.drawImage(ammo,725,325,50,50);
+    ctx.drawImage(ammo,825,125,50,50);
+    ctx.drawImage(ammo,925,225,50,50);
+    ctx.drawImage(ammo,1025,125,50,50);
+}
+
 function loadingTime(){
     var loadingTime = setTimeout(loadGame , 2800);
 }
 
 function loadGame(){
-    $(".game").show();
+    $(".game-container").show();
     $(".gametitle").show();
     $(".loading-bar").hide();
     $(".loading-text").hide();
@@ -255,7 +289,7 @@ $(function(){
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
         playerX,playerY, playerWidth, playerHeight);
     fuelGauge();
-    $(".game").hide();
+    $(".game-container").hide();
     $(".gametitle").hide();
     $(".loading-bar").show();
     $(".loading-text").show();
