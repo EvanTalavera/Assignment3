@@ -11,6 +11,12 @@ var playerHeight = 50;
 var playerFrameX = 0;
 var playerFrameY = 0;
 
+var playerAtTown = false;
+var playerAtEnemyTank = false;
+var playerAtWrench = false;
+var playerAtAmmo = false;
+
+
 
 
 const playerSprite = new Image();
@@ -18,6 +24,34 @@ const town = new Image();
 const enemyTank = new Image();
 const wrench = new Image();
 const ammo = new Image();
+
+const combatMenu = document.querySelector(".combat-menu")
+
+$(".run-button").click(function(){
+    closeCombat()
+})
+
+townLocationsX = [0,200,300,400,600,800,900,1000];
+townLocationsY = [200,100,200,400,200,0,300,500];
+townLocationsTotal = townLocationsX.length;
+townLocations = [townLocationsX,townLocationsY]
+
+enemyTankLocationsX = [25,25,125,125,225,325,425,525,525,625,725,925,1025];
+enemyTankLocationsY = [325,25,225,425,525,25,225,25,525,325,425,125,25,325];
+enemyTankLocationsTotal=enemyTankLocationsX.length;
+enemyTankLocations= [enemyTankLocationsX,enemyTankLocationsY];
+
+wrenchLocationsX = [25,125,225,325,425,525,625,725,825,925,1025];
+wrenchlocationsY = [125,25,225,425,125,325,25,225,525,25,425];
+wrenchLocationsTotal = wrenchLocationsX.length;
+wrenchLocations = [wrenchLocationsX,wrenchlocationsY]
+
+ammoLocationsX = [125,225,325,425,525,625,726,825,925,1025]
+ammoLocationsY = [325,25,525,25,225,425,325,125,225,125]
+ammoLocationsTotal = ammoLocationsX.length;
+ammoLocations = [ammoLocationsX,ammoLocationsY]
+
+
 
 playerSprite.src ="playerSprite.png";
 town.src = "Town.png";
@@ -39,34 +73,70 @@ $('html').keydown(function(e){
         if (playerY > 25 && playerFuel >= 1) playerY -= 100; 
         playerFuel-=1; 
         playerFrameY=3;
-        console.log(playerFuel)
-        console.log(playerX,playerY) 
+        checkPlayerAtTown()
+        checkPlayerAtEnemyTank()
+        checkPlayerAtWrench
+        checkPlayerAtAmmo()
+
+
+        if (playerAtEnemyTank == true){
+            openCombat()
+        }
+
     }
 
     else if(e.key == "s"){
         if (playerY < 500 && playerFuel >= 1) playerY += 100; 
         playerFuel-=1; 
         playerFrameY=0;
-        console.log(playerFuel)
-        console.log(playerX,playerY) 
+        checkPlayerAtTown()
+        checkPlayerAtEnemyTank()
+        checkPlayerAtWrench
+        checkPlayerAtAmmo()
+
+        if (playerAtEnemyTank == true){
+            openCombat()
+        }
+        
+
     }
     
     else if(e.key == "a"){
         if(playerX >25 && playerFuel >= 1 ) playerX -=100; 
         playerFuel-=1; 
         playerFrameY=1;
-        console.log(playerFuel)
-        console.log(playerX,playerY) 
+        checkPlayerAtTown()
+        checkPlayerAtEnemyTank()
+        checkPlayerAtWrench
+        checkPlayerAtAmmo()
+
+        if (playerAtEnemyTank == true){
+            openCombat()
+        }
+        
     }
 
     else if(e.key == "d"){
         if(playerX < 1025 && playerFuel >= 1) playerX += 100; 
         playerFuel-=1; 
         playerFrameY=2;
-        console.log(playerFuel)
-        console.log(playerX,playerY) 
+        checkPlayerAtTown()
+        checkPlayerAtEnemyTank()
+        checkPlayerAtWrench
+        checkPlayerAtAmmo()
+
+        if (playerAtEnemyTank == true){
+            openCombat()
+        }
+        
+
     }
-    
+
+
+    createTowns();
+    createEnemy();
+    createHealth();
+    createAmmo();
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
         playerX,playerY, playerWidth, playerHeight);
     fuelGauge(playerFuel)
@@ -75,80 +145,7 @@ $('html').keydown(function(e){
 
 //End of player movement section
 
-//Player projectile section
-class Projectile {
-    constructor(x, y, radius, color, velocity){
-        this.x = x
-        this.y = y
-        this.radius = radius
-        this.color = color
-        this.velocity = velocity
-    }
 
-    draw(){
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2, false)
-        ctx.fillStyle = this.color
-        ctx.fill()
-    }
-
-    update(){
-        this.draw()
-        this.x = this.x + this.velocity.x
-        this.y = this.y + this.velocity.y
-    }
-}
-
-const projectiles = []
-
-function animate(){
-    requestAnimationFrame(animate)
-    ctx.clearRect(0,0, c.width, c.height)
-    drawGame();
-    healthBar();
-    drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
-        playerX,playerY, playerWidth, playerHeight);
-    fuelGauge();
-
-    projectiles.forEach(projectile =>{
-        projectile.update()
-        
-    })
-
-}
-
-window.addEventListener("click",(event) => {
-    console.log(event.clientX)
-    console.log(event.clientY)
-
-
-
-    const angle = Math.atan2((event.clientY) - (playerY+25), (event.clientX) - (playerX+25))
-
-    const velocity ={
-        x: Math.cos(angle) ,
-        y: Math.sin(angle),
-    }
-    console.log(velocity)
-
-
-    projectiles.push(new Projectile(
-        playerX+25,
-        playerY+25,
-        5,
-        "red",
-        velocity
-
-    ))
-
-
-});
-
-
-
-animate()
-
-//End of player projectile section
    
 function fuelGauge(){
     for (i = 0; i < playerFuel; i +=1)
@@ -206,69 +203,128 @@ function drawGame(){
     ctx.font = "20px  Lucida Sans Typewriter ";
     ctx.fillText("Health:",500,630);
     ctx.fillText("Fuel:", 100,630);
-    createTowns(town);
-    createEnemy(enemyTank);
-    createHealth(wrench);
-    createAmmo(ammo);
+    createTowns();
+    createEnemy();
+    createHealth();
+    createAmmo();
 }
 
 function createTowns(){
-    ctx.drawImage(town,0,200,100,100);
-    ctx.drawImage(town,200,100,100,100);
-    ctx.drawImage(town,300,200,100,100);
-    ctx.drawImage(town,400,400,100,100);
-    ctx.drawImage(town,600,200,100,100);
-    ctx.drawImage(town,800,0,100,100);
-    ctx.drawImage(town,900,300,100,100);
-    ctx.drawImage(town,1000,500,100,100);
+
+    for(i=0; i<townLocationsTotal; i++){
+
+        ctx.drawImage(town,townLocations[0][i],townLocations[1][i],100,100)
+
+    }
    
 }
 
 function createEnemy(){
-    ctx.drawImage(enemyTank,25,325,50,50);
-    ctx.drawImage(enemyTank,25,25,50,50);
-    ctx.drawImage(enemyTank,125,225,50,50);
-    ctx.drawImage(enemyTank,125,425,50,50);
-    ctx.drawImage(enemyTank,225,525,50,50);
-    ctx.drawImage(enemyTank,325,25,50,50);
-    ctx.drawImage(enemyTank,425,225,50,50);
-    ctx.drawImage(enemyTank,525,25,50,50);
-    ctx.drawImage(enemyTank,525,525,50,50);
-    ctx.drawImage(enemyTank,625,325,50,50);
-    ctx.drawImage(enemyTank,725,425,50,50);
-    ctx.drawImage(enemyTank,725,125,50,50);
-    ctx.drawImage(enemyTank,825,225,50,50);
-    ctx.drawImage(enemyTank,925,125,50,50);
-    ctx.drawImage(enemyTank,925,425,50,50);
-    ctx.drawImage(enemyTank,1025,25,50,50);
-    ctx.drawImage(enemyTank,1025,325,50,50);
+
+    for(i=0; i<enemyTankLocationsTotal; i++){
+        ctx.drawImage(enemyTank,enemyTankLocations[0][i],enemyTankLocations[1][i],50,50)
+    }
+
 }
 
 function createHealth(){
-    ctx.drawImage(wrench,25,125,50,50);
-    ctx.drawImage(wrench,125,25,50,50);
-    ctx.drawImage(wrench,225,225,50,50);
-    ctx.drawImage(wrench,325,425,50,50);
-    ctx.drawImage(wrench,425,125,50,50);
-    ctx.drawImage(wrench,525,325,50,50 );
-    ctx.drawImage(wrench,625,25,50,50);
-    ctx.drawImage(wrench,725,225,50,50);
-    ctx.drawImage(wrench,825,525,50,50);
-    ctx.drawImage(wrench,925,25,50,50);
-    ctx.drawImage(wrench,1025,425,50,50);
+
+    for(i=0; i<wrenchLocationsTotal; i++){
+        ctx.drawImage(wrench,wrenchLocations[0][i],wrenchLocations[1][i],50,50)
+    }
+
 }
 
 function createAmmo(){
-    ctx.drawImage(ammo,125,325,50,50);
-    ctx.drawImage(ammo,225,25,50,50);
-    ctx.drawImage(ammo,325,525,50,50);
-    ctx.drawImage(ammo,425,25,50,50);
-    ctx.drawImage(ammo,525,225,50,50);
-    ctx.drawImage(ammo,625,425,50,50);
-    ctx.drawImage(ammo,725,325,50,50);
-    ctx.drawImage(ammo,825,125,50,50);
-    ctx.drawImage(ammo,925,225,50,50);
-    ctx.drawImage(ammo,1025,125,50,50);
+
+    for(i=0; i<ammoLocationsTotal; i++){
+        ctx.drawImage(ammo,ammoLocations[0][i],ammoLocations[1][i],50,50)
+    }
+
+}
+
+function checkPlayerAtTown(){
+
+    for(i=0; i<townLocationsTotal; i++){
+        if((playerX - 25) == townLocations[0][i] && (playerY - 25) == townLocations[1][i] ){    
+            playerAtTown = true;
+            return playerAtTown
+        }
+
+        else{
+            playerAtTown = false;  
+        }
+    }
+    
+
+}
+
+function checkPlayerAtEnemyTank(){
+
+    for(i=0; i<enemyTankLocationsTotal; i++){
+        if(playerX == enemyTankLocations[0][i] && playerY == enemyTankLocations[1][i] ){    
+
+            playerAtEnemyTank = true;
+            return playerAtEnemyTank
+
+        }
+
+        else{
+            playerAtEnemyTank = false;
+            
+        }
+    }
+
+
+}
+
+function checkPlayerAtWrench(){
+
+    for(i=0; i<wrenchLocationsTotal; i++){
+        if(playerX == wrenchLocations[0][i] && playerY == wrenchLocations[1][i] ){    
+
+            playerAtWrench = true;
+            return playerAtWrench
+            
+            
+
+        }
+
+        else{
+            playerAtWrench = false;
+            
+        }
+    }
+
+
+}
+
+function checkPlayerAtAmmo(){
+
+    for(i=0; i<ammoLocationsTotal; i++){
+        if(playerX == ammoLocations[0][i] && playerY == ammoLocations[1][i] ){    
+
+            playerAtAmmo = true;
+            return playerAtAmmo
+
+        }
+
+        else{
+            playerAtAmmo = false;
+            
+        }
+    }
+
+}
+
+function openCombat(){
+    combatMenu.classList.add("active")
+
+}
+
+function closeCombat(){
+    combatMenu.classList.remove("active")
+
 }
 
 function loadingTime(){

@@ -196,7 +196,7 @@ li{
     margin-top:100px;
     font-family: Lucida Sans Typewriter;
     padding: 10px;
-    width:300px;
+    width:250px;
     height: 500px; 
     font-size: 1.5em;
     text-align:center;
@@ -215,28 +215,66 @@ li{
 }
 
 .win-container{
-    display: flex;
-    flex-direction: column;
     text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
     background-color: #B7B7A4;
     width: 200px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
     border-radius: 10px;
+    z-index:12;
 }
 
-.lose-container{
-    display: flex;
-    flex-direction: column;
+.win-container.active{
     text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
     background-color: #B7B7A4;
     width: 200px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
     border-radius: 10px;
+    z-index:12;
 }
+
+
+.lose-container{
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #B7B7A4;
+    width: 200px;
+    height: 200px;
+    font-family: Lucida Sans Typewriter;
+    border: 3px solid black;
+    border-radius: 10px;
+    z-index: 11;
+}
+
+.lose-container.active{
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background-color: #B7B7A4;
+    width: 200px;
+    height: 200px;
+    font-family: Lucida Sans Typewriter;
+    border: 3px solid black;
+    border-radius: 10px;
+    z-index: 11;
+}
+
 
 
 
@@ -259,6 +297,32 @@ li{
 .legend-image-town{
     width:50px;
     height:50px;
+}
+
+.combat-menu{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    width:500px;
+    max-width: 50%;
+    z-index: 13;
+}
+
+.combat-menu.active{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    width:500px;
+    max-width: 50%;
+    z-index: 13;
 }
 
 

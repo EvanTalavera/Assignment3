@@ -13,7 +13,7 @@
         <h2 class = "loading-text">Loading...</h2>
         <div class = "game-container">
             <div class = "legend">
-                <h3 claas = "legend-title">Legends</h3>
+                <h3 claas = "legend-title">Legend</h3>
                 <li class = "legend-list">Player - <img class = "legend-image"  src ="Player Tank(Legend).png"></li>
                 <li class = "legend-list">Enemy - <img class = "legend-image" src = "Enemy Tank(Legend).png"></li>
                 <li class = "legend-list">Health - <img class = "legend-image" src ="Wrench(Legend).png"></li>
@@ -21,7 +21,20 @@
                 <li class = "legend-list" >Town - <img  class = "legend-image-town" src ="Town(Legend).png"></li>
             </div>
            
-            <canvas class = "game" id = "gameCanvas" width = "1100" height = "700"></canvas> 
+            <canvas class = "game" id = "gameCanvas" width = "1100" height = "700"></canvas>
+            
+            <div class = "combat-menu">
+                <div class ="combat-menu-header">
+                <p id = "combat-title">Combat</p>
+                <button class = "run-button">Run</button>
+                </div>
+                
+
+                <div class = "combat-menu-body">
+                    <button>Attack</button>
+                    <button>Stats</button>
+                </div>
+            </div>
 
             <div class = "condition-container">
                 <div class = "win-container">
