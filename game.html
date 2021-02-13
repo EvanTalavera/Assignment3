@@ -18,21 +18,22 @@
                 <li class = "legend-list">Enemy - <img class = "legend-image" src = "Enemy Tank(Legend).png"></li>
                 <li class = "legend-list">Health - <img class = "legend-image" src ="Wrench(Legend).png"></li>
                 <li class = "legend-list">Ammo - <img class = "legend-image" src ="Ammo(Legend).png"></li>
-                <li class = "legend-list" >Town - <img  class = "legend-image-town" src ="Town(Legend).png"></li>
+                <li class = "legend-list" >Town - <img  class = "legend-image-building" src ="Town(Legend).png"></li>
+                <li class = "legend-list" >Base - <img  class = "legend-image-building" src ="Army Base (Legend).png"></li>
             </div>
            
             <canvas class = "game" id = "gameCanvas" width = "1100" height = "700"></canvas>
             
             <div class = "combat-menu">
-                <div class ="combat-menu-header">
-                <p id = "combat-title">Combat</p>
-                <button class = "run-button">Run</button>
-                </div>
                 
-
                 <div class = "combat-menu-body">
-                    <button>Attack</button>
-                    <button>Stats</button>
+                    <h3 id = "combat-title">Combat</h3>
+                    <div class = "combat-menu-buttons-container">
+                        <button id = "run-button" class ="container-button">Run</button>
+                        <button class ="container-button">Attack</button>
+                        <button class ="container-button">Stats</button>
+                    </div>
+                   
                 </div>
             </div>
 
@@ -49,6 +50,16 @@
                     <h3>Your score:</h3>
                     <button class = "container-button" onclick="document.location = 'game.html'">Retry</button>
                     <button class = "container-button" onclick="document.location = 'index.html'">Exit</button>
+                </div>
+
+                <div class = "instructions">
+                    <h3>How to Play?</h3>
+                    <p class = "instructions-paragraph">
+                        Navigate the player's tank with the W,A,S,D keys. Avoid or engage enemy tanks. 
+                        Pick up the wrench icon for health. Pick up the bullet icon for ammo. Refuel
+                        at towns and reach the base to win!.
+
+                    </p>
                 </div>
 
             </div>

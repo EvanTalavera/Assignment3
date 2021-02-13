@@ -24,10 +24,11 @@ const town = new Image();
 const enemyTank = new Image();
 const wrench = new Image();
 const ammo = new Image();
+const base = new Image();
 
 const combatMenu = document.querySelector(".combat-menu")
 
-$(".run-button").click(function(){
+$("#run-button").click(function(){
     closeCombat()
 })
 
@@ -36,8 +37,8 @@ townLocationsY = [200,100,200,400,200,0,300,500];
 townLocationsTotal = townLocationsX.length;
 townLocations = [townLocationsX,townLocationsY]
 
-enemyTankLocationsX = [25,25,125,125,225,325,425,525,525,625,725,925,1025];
-enemyTankLocationsY = [325,25,225,425,525,25,225,25,525,325,425,125,25,325];
+enemyTankLocationsX = [25,25,125,125,225,325,425,525,525,625,725,925];
+enemyTankLocationsY = [325,25,225,425,525,25,225,25,525,325,425,125,25];
 enemyTankLocationsTotal=enemyTankLocationsX.length;
 enemyTankLocations= [enemyTankLocationsX,enemyTankLocationsY];
 
@@ -51,13 +52,15 @@ ammoLocationsY = [325,25,525,25,225,425,325,125,225,125]
 ammoLocationsTotal = ammoLocationsX.length;
 ammoLocations = [ammoLocationsX,ammoLocationsY]
 
-
+armybaseLocationX = 1000;
+armybaseLocationY = 0;
 
 playerSprite.src ="playerSprite.png";
 town.src = "Town.png";
 enemyTank.src = "Enemy Tank.png";
 wrench.src = "Wrench.png";
 ammo.src = "Ammo.png"
+base.src = "Army Base.png"
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
@@ -132,7 +135,7 @@ $('html').keydown(function(e){
 
     }
 
-
+   
     createTowns();
     createEnemy();
     createHealth();
@@ -203,6 +206,8 @@ function drawGame(){
     ctx.font = "20px  Lucida Sans Typewriter ";
     ctx.fillText("Health:",500,630);
     ctx.fillText("Fuel:", 100,630);
+
+    ctx.drawImage(base,armybaseLocationX,armybaseLocationY,100,100);
     createTowns();
     createEnemy();
     createHealth();
