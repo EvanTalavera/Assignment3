@@ -2,7 +2,8 @@
 var c = document.getElementById("gameCanvas");
 var ctx = c.getContext('2d');
 
-var health = 800;
+var playerHealth = 800;
+var playerAttack = 100;
 var playerFuel = 20;
 var playerX = 25;
 var playerY = 525;
@@ -16,6 +17,15 @@ var playerAtEnemyTank = false;
 var playerAtWrench = false;
 var playerAtAmmo = false;
 
+class Enemy{
+    constructor(number,health,attack){
+        this.number = number
+        this.health = health
+        this.attack = attack
+    }
+}
+
+
 
 
 
@@ -28,9 +38,6 @@ const base = new Image();
 
 const combatMenu = document.querySelector(".combat-menu")
 
-$("#run-button").click(function(){
-    closeCombat()
-})
 
 townLocationsX = [0,200,300,400,600,800,900,1000];
 townLocationsY = [200,100,200,400,200,0,300,500];
@@ -55,6 +62,8 @@ ammoLocations = [ammoLocationsX,ammoLocationsY]
 armybaseLocationX = 1000;
 armybaseLocationY = 0;
 
+var engagedStatus = checkPlayerAtEnemyTank()
+
 playerSprite.src ="playerSprite.png";
 town.src = "Town.png";
 enemyTank.src = "Enemy Tank.png";
@@ -71,6 +80,7 @@ function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinatio
 $('html').keydown(function(e){
     eraseTank();
     clearFuelGauge()
+    clearHealthBar()
 
     if(e.key == "w"){
         if (playerY > 25 && playerFuel >= 1) playerY -= 100; 
@@ -78,13 +88,8 @@ $('html').keydown(function(e){
         playerFrameY=3;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
-        checkPlayerAtWrench
+        checkPlayerAtWrench()
         checkPlayerAtAmmo()
-
-
-        if (playerAtEnemyTank == true){
-            openCombat()
-        }
 
     }
 
@@ -94,12 +99,9 @@ $('html').keydown(function(e){
         playerFrameY=0;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
-        checkPlayerAtWrench
+        checkPlayerAtWrench()
         checkPlayerAtAmmo()
 
-        if (playerAtEnemyTank == true){
-            openCombat()
-        }
         
 
     }
@@ -110,13 +112,8 @@ $('html').keydown(function(e){
         playerFrameY=1;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
-        checkPlayerAtWrench
+        checkPlayerAtWrench()
         checkPlayerAtAmmo()
-
-        if (playerAtEnemyTank == true){
-            openCombat()
-        }
-        
     }
 
     else if(e.key == "d"){
@@ -125,24 +122,20 @@ $('html').keydown(function(e){
         playerFrameY=2;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
-        checkPlayerAtWrench
+        checkPlayerAtWrench()
         checkPlayerAtAmmo()
-
-        if (playerAtEnemyTank == true){
-            openCombat()
-        }
-        
 
     }
 
    
     createTowns();
     createEnemy();
-    createHealth();
+    createWrench();
     createAmmo();
     drawSprite(playerSprite, playerWidth*playerFrameX, playerHeight * playerFrameY, playerWidth, playerHeight, 
         playerX,playerY, playerWidth, playerHeight);
     fuelGauge(playerFuel)
+    healthBar();
     
 })
 
@@ -170,17 +163,35 @@ function clearFuelGauge(){
 
 }
 
+function healthBar(){
+
+    for (i = 0; i < (playerHealth/100); i +=1)
+    {
+        ctx.fillStyle="green";
+        ctx.fillRect(500 + (30*i), 640, 20,40)
+
+    };
+    
+}
+
+function clearHealthBar(){
+
+    for (i = 0; i < 8; i +=1)
+    {
+        ctx.fillStyle="grey";
+        ctx.fillRect(500 + (30*i), 640, 20,40)
+
+    };
+    
+}
+
 function eraseTank(){
     ctx.fillStyle = "#DDA15E";
     ctx.fillRect(playerX,playerY,50,50);
     ctx.moveTo(playerX,playerY);
 }
 
-function healthBar(){
-    ctx.fillStyle = "green";
-    ctx.fillRect(500,640,(health/800)*250,40);
-    
-}
+
 
 function drawGame(){
     ctx.beginPath();
@@ -210,7 +221,7 @@ function drawGame(){
     ctx.drawImage(base,armybaseLocationX,armybaseLocationY,100,100);
     createTowns();
     createEnemy();
-    createHealth();
+    createWrench();
     createAmmo();
 }
 
@@ -232,7 +243,7 @@ function createEnemy(){
 
 }
 
-function createHealth(){
+function createWrench(){
 
     for(i=0; i<wrenchLocationsTotal; i++){
         ctx.drawImage(wrench,wrenchLocations[0][i],wrenchLocations[1][i],50,50)
@@ -270,7 +281,7 @@ function checkPlayerAtEnemyTank(){
         if(playerX == enemyTankLocations[0][i] && playerY == enemyTankLocations[1][i] ){    
 
             playerAtEnemyTank = true;
-            return playerAtEnemyTank
+            openCombat(i)
 
         }
 
@@ -286,22 +297,22 @@ function checkPlayerAtEnemyTank(){
 function checkPlayerAtWrench(){
 
     for(i=0; i<wrenchLocationsTotal; i++){
-        if(playerX == wrenchLocations[0][i] && playerY == wrenchLocations[1][i] ){    
-
-            playerAtWrench = true;
-            return playerAtWrench
-            
-            
-
-        }
-
-        else{
-            playerAtWrench = false;
-            
+        if(playerX == wrenchLocations[0][i] && playerY == wrenchLocations[1][i] ){
+            if(playerHealth <= 600){
+                playerHealth +=200
+                wrenchLocations[0].splice(i,1)
+                wrenchLocations[1].splice(i,1)
+                clearHealthBar()
+                healthBar()
+            } else if(playerHealth == 700){
+                playerHealth+=100
+                wrenchLocations[0].splice(i,1)
+                wrenchLocations[1].splice(i,1)
+                clearHealthBar()
+                healthBar()
+            }
         }
     }
-
-
 }
 
 function checkPlayerAtAmmo(){
@@ -322,15 +333,69 @@ function checkPlayerAtAmmo(){
 
 }
 
-function openCombat(){
+var engagedTank = ""
+
+function openCombat(enemyEngaged){
     combatMenu.classList.add("active")
+    $("#run-button").click(function(){
+        closeCombat()
+    })
+    engagedTank = new Enemy(enemyEngaged,500,100)
+    $("#combat-status").text("You have engaged a hostile tank!")
+    $("#enemy-tank").text("Engaged tank: " + engagedTank.number)
+    $("#enemy-health").text("Enemy health: " + engagedTank.health)
+    $("#enemy-attack").text("Enemy attack: " + engagedTank.attack)
 
 }
+
+$("#attack-button").click(function(){
+    $("#attack-button").attr("disabled","disabled")
+    setTimeout(function(){
+    $("#attack-button").removeAttr("disabled")
+    },6000)
+
+    engagedTank.health -= playerAttack
+    $("#enemy-health").text("Enemy health: " + engagedTank.health)
+    $("#combat-status").text("You've hit the enemy!")
+    
+    var enemyHitChance = Math.floor(Math.random()*101)
+
+    if(engagedTank.health <=0){
+        enemyTankLocations[0].splice(engagedTank.number,1)
+        enemyTankLocations[1].splice(engagedTank.number,1)
+        setTimeout(function(){
+            $("#combat-status").text("You defeated the enemy tank!")
+        },2000)
+        setTimeout(closeCombat,3000)
+
+    } else{
+        if (enemyHitChance<=70){
+    
+            setTimeout(function(){
+                playerHealth -= engagedTank.attack
+                $("#combat-status").text("The enemy hit you!")
+                console.log(playerHealth)
+                clearHealthBar()
+                healthBar()
+            }, 3000)
+    
+        } else{
+            setTimeout(function(){
+                $("#combat-status").text("The enemy missed you!")
+            },3000)
+        }
+    
+
+    }
+
+})
 
 function closeCombat(){
     combatMenu.classList.remove("active")
 
 }
+
+
 
 function loadingTime(){
     var loadingTime = setTimeout(loadGame , 2800);

@@ -12,7 +12,7 @@
         <lottie-player class = "loading-bar" src="https://assets6.lottiefiles.com/packages/lf20_ULqRzd.json"  background="transparent"  speed="1"  style="width: 400px; height: 400px;"  loop  autoplay></lottie-player>
         <h2 class = "loading-text">Loading...</h2>
         <div class = "game-container">
-            <div class = "legend">
+            <!--<div class = "legend">
                 <h3 claas = "legend-title">Legend</h3>
                 <li class = "legend-list">Player - <img class = "legend-image"  src ="Player Tank(Legend).png"></li>
                 <li class = "legend-list">Enemy - <img class = "legend-image" src = "Enemy Tank(Legend).png"></li>
@@ -20,7 +20,7 @@
                 <li class = "legend-list">Ammo - <img class = "legend-image" src ="Ammo(Legend).png"></li>
                 <li class = "legend-list" >Town - <img  class = "legend-image-building" src ="Town(Legend).png"></li>
                 <li class = "legend-list" >Base - <img  class = "legend-image-building" src ="Army Base (Legend).png"></li>
-            </div>
+            </div>-->
            
             <canvas class = "game" id = "gameCanvas" width = "1100" height = "700"></canvas>
             
@@ -28,10 +28,16 @@
                 
                 <div class = "combat-menu-body">
                     <h3 id = "combat-title">Combat</h3>
+
+                    <p id="combat-status">You have engaged a hostile tank!</p>
+                    <p id="enemy-tank">Engaged tank:</p>
+                    <p id="enemy-health">Enemy health:</p>
+                    <p id="enemy-attack">Enemy attack:</p>
+
                     <div class = "combat-menu-buttons-container">
+                        <button id = "attack-button"class ="container-button">Attack</button>
+                        <button id = "stats-button" class ="container-button">Stats</button>
                         <button id = "run-button" class ="container-button">Run</button>
-                        <button class ="container-button">Attack</button>
-                        <button class ="container-button">Stats</button>
                     </div>
                    
                 </div>
@@ -52,7 +58,7 @@
                     <button class = "container-button" onclick="document.location = 'index.html'">Exit</button>
                 </div>
 
-                <div class = "instructions">
+                <!--<div class = "instructions">
                     <h3>How to Play?</h3>
                     <p class = "instructions-paragraph">
                         Navigate the player's tank with the W,A,S,D keys. Avoid or engage enemy tanks. 
@@ -60,7 +66,7 @@
                         at towns and reach the base to win!.
 
                     </p>
-                </div>
+                </div>-->
 
             </div>
             

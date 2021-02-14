@@ -96,7 +96,7 @@ body{
 .game{
     background-color:#DDA15E;
     margin-left: 90px;
-    margin-right: auto;
+
 }
 
 .gametitle{
@@ -195,8 +195,9 @@ li{
     background-color: #B7B7A4;
     margin-top: -4px;
     font-family: Lucida Sans Typewriter;
-    width: 500px;
-    height: 700px; 
+    width: 300px;
+    height: 700px;
+    max-width: 25%; 
     font-size: 1.5em;
     margin-right: 30px;
     text-align:center;
@@ -339,8 +340,8 @@ li{
 
 .combat-menu-buttons-container{
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-around;
     margin: auto;
     padding: 20px;
 }
@@ -352,15 +353,18 @@ li{
     font-family: Lucida Sans Typewriter;
     padding: 10px;
     width:250px;
-    height: 300px; 
+    height: 300px;
+    max-width: 20%;
     font-size: 1.2em;
     text-align:center;
     border: 3px solid black;
     border-radius: 10px;
+
 }
 
 .instructions-paragraph{
     width: 250px;
+    max-width: 10px;
     
 }
 
