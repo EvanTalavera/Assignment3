@@ -5,6 +5,10 @@ var ctx = c.getContext('2d');
 var playerHealth = 800;
 var playerAttack = 100;
 var playerFuel = 20;
+var playerAmmo = 15;
+var playerEngaged = false;
+var playerScore = 0
+
 var playerX = 25;
 var playerY = 525;
 var playerWidth = 50;
@@ -37,6 +41,8 @@ const ammo = new Image();
 const base = new Image();
 
 const combatMenu = document.querySelector(".combat-menu")
+const victoryMenu = document.querySelector(".win-container")
+const defeatMenu = document.querySelector(".lose-container")
 
 
 townLocationsX = [0,200,300,400,600,800,900,1000];
@@ -54,13 +60,13 @@ wrenchlocationsY = [125,25,225,425,125,325,25,225,525,25,425];
 wrenchLocationsTotal = wrenchLocationsX.length;
 wrenchLocations = [wrenchLocationsX,wrenchlocationsY]
 
-ammoLocationsX = [125,225,325,425,525,625,726,825,925,1025]
+ammoLocationsX = [125,225,325,425,525,625,725,825,925,1025]
 ammoLocationsY = [325,25,525,25,225,425,325,125,225,125]
 ammoLocationsTotal = ammoLocationsX.length;
 ammoLocations = [ammoLocationsX,ammoLocationsY]
 
-armybaseLocationX = 1000;
-armybaseLocationY = 0;
+armyBaseLocationX = 1025;
+armyBaseLocationY = 25;
 
 var engagedStatus = checkPlayerAtEnemyTank()
 
@@ -83,47 +89,79 @@ $('html').keydown(function(e){
     clearHealthBar()
 
     if(e.key == "w"){
-        if (playerY > 25 && playerFuel >= 1) playerY -= 100; 
+        if (playerY > 25 && playerFuel >= 1 && (playerEngaged == false)){
+        playerY -= 100; 
         playerFuel-=1; 
         playerFrameY=3;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
         checkPlayerAtWrench()
         checkPlayerAtAmmo()
+        checkPlayerAtBase()
+
+        if(playerFuel<=0){
+            openDefeat()
+        }
+
+        }
 
     }
 
     else if(e.key == "s"){
-        if (playerY < 500 && playerFuel >= 1) playerY += 100; 
+        if (playerY < 500 && playerFuel >= 1 && (playerEngaged == false)){
+        playerY += 100; 
         playerFuel-=1; 
         playerFrameY=0;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
         checkPlayerAtWrench()
         checkPlayerAtAmmo()
+        checkPlayerAtBase()
+
+        if(playerFuel<=0){
+            openDefeat()
+        }
+
+        } 
 
         
 
     }
     
     else if(e.key == "a"){
-        if(playerX >25 && playerFuel >= 1 ) playerX -=100; 
+        if(playerX >25 && playerFuel >= 1 && (playerEngaged == false)){
+        playerX -=100; 
         playerFuel-=1; 
         playerFrameY=1;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
         checkPlayerAtWrench()
         checkPlayerAtAmmo()
+        checkPlayerAtBase()
+
+        if(playerFuel<=0){
+            openDefeat()
+        }
+
+        }
     }
 
     else if(e.key == "d"){
-        if(playerX < 1025 && playerFuel >= 1) playerX += 100; 
+        if(playerX < 1025 && playerFuel >= 1&& (playerEngaged == false)){
+        playerX += 100; 
         playerFuel-=1; 
         playerFrameY=2;
         checkPlayerAtTown()
         checkPlayerAtEnemyTank()
         checkPlayerAtWrench()
         checkPlayerAtAmmo()
+        checkPlayerAtBase()
+
+        if(playerFuel<=0){
+            openDefeat()
+        }
+        
+        }
 
     }
 
@@ -142,12 +180,12 @@ $('html').keydown(function(e){
 //End of player movement section
 
 
-   
+ //Start of rendering section  
 function fuelGauge(){
     for (i = 0; i < playerFuel; i +=1)
     {
         ctx.fillStyle="yellow";
-        ctx.fillRect(100 + (10*i), 640, 20,40)
+        ctx.fillRect(50 + (10*i), 640, 20,40)
 
     };
 
@@ -157,7 +195,7 @@ function clearFuelGauge(){
     for (i = 0; i < 20; i +=1)
     {
         ctx.fillStyle="grey";
-        ctx.fillRect(100 + (10*i), 640, 20,40)
+        ctx.fillRect(50 + (10*i), 640, 20,40)
 
     };
 
@@ -168,7 +206,7 @@ function healthBar(){
     for (i = 0; i < (playerHealth/100); i +=1)
     {
         ctx.fillStyle="green";
-        ctx.fillRect(500 + (30*i), 640, 20,40)
+        ctx.fillRect(350 + (30*i), 640, 20,40)
 
     };
     
@@ -179,7 +217,7 @@ function clearHealthBar(){
     for (i = 0; i < 8; i +=1)
     {
         ctx.fillStyle="grey";
-        ctx.fillRect(500 + (30*i), 640, 20,40)
+        ctx.fillRect(350 + (30*i), 640, 20,40)
 
     };
     
@@ -215,15 +253,22 @@ function drawGame(){
 
     ctx.fillStyle ="black";
     ctx.font = "20px  Lucida Sans Typewriter ";
-    ctx.fillText("Health:",500,630);
-    ctx.fillText("Fuel:", 100,630);
+    ctx.fillText("Health:",350,630);
+    ctx.fillText("Fuel:", 50,630);
+    ctx.fillText("Ammo: ",650,630);
+    ctx.fillText(playerAmmo,650,665);
+    ctx.fillText("Score:", 750,630);
+    ctx.fillText(playerScore,750,665);
 
-    ctx.drawImage(base,armybaseLocationX,armybaseLocationY,100,100);
+    ctx.drawImage(base,(armyBaseLocationX-25),(armyBaseLocationY-25),100,100);
+    
     createTowns();
     createEnemy();
     createWrench();
     createAmmo();
 }
+
+
 
 function createTowns(){
 
@@ -259,17 +304,41 @@ function createAmmo(){
 
 }
 
+function openVictory(){
+    $(".score-display").text("Your score:" + playerScore)
+    victoryMenu.classList.add("active")
+
+}
+
+function openDefeat(){
+    $(".score-display").text("Your score:" + playerScore)
+    defeatMenu.classList.add("active")
+
+}
+
+//End of render section
+
+//Start of player position check section
+
 function checkPlayerAtTown(){
 
     for(i=0; i<townLocationsTotal; i++){
-        if((playerX - 25) == townLocations[0][i] && (playerY - 25) == townLocations[1][i] ){    
-            playerAtTown = true;
-            return playerAtTown
+        if((playerX - 25) == townLocations[0][i] && (playerY - 25) == townLocations[1][i] ){
+            
+            if(playerFuel<=15){
+                playerFuel += 5
+                clearFuelGauge()
+                fuelGauge()
+
+            } else if(15<playerFuel<20){
+                playerFuel += (20-playerFuel)
+                clearFuelGauge()
+                fuelGauge()
+
+            }
+            
         }
 
-        else{
-            playerAtTown = false;  
-        }
     }
     
 
@@ -278,17 +347,12 @@ function checkPlayerAtTown(){
 function checkPlayerAtEnemyTank(){
 
     for(i=0; i<enemyTankLocationsTotal; i++){
-        if(playerX == enemyTankLocations[0][i] && playerY == enemyTankLocations[1][i] ){    
+        if(playerX == enemyTankLocations[0][i] && playerY == enemyTankLocations[1][i] ){
 
-            playerAtEnemyTank = true;
             openCombat(i)
 
         }
 
-        else{
-            playerAtEnemyTank = false;
-            
-        }
     }
 
 
@@ -299,17 +363,33 @@ function checkPlayerAtWrench(){
     for(i=0; i<wrenchLocationsTotal; i++){
         if(playerX == wrenchLocations[0][i] && playerY == wrenchLocations[1][i] ){
             if(playerHealth <= 600){
+
                 playerHealth +=200
                 wrenchLocations[0].splice(i,1)
                 wrenchLocations[1].splice(i,1)
                 clearHealthBar()
                 healthBar()
+
+                ctx.fillStyle = "grey"
+                ctx.fillText(playerScore,750,665)
+                playerScore += 250
+                ctx.fillStyle="black"
+                ctx.fillText(playerScore,750,665);
+
             } else if(playerHealth == 700){
+
                 playerHealth+=100
                 wrenchLocations[0].splice(i,1)
                 wrenchLocations[1].splice(i,1)
                 clearHealthBar()
                 healthBar()
+
+                ctx.fillStyle = "grey"
+                ctx.fillText(playerScore,750,665)
+                playerScore += 250
+                ctx.fillStyle="black"
+                ctx.fillText(playerScore,750,665);
+
             }
         }
     }
@@ -318,24 +398,46 @@ function checkPlayerAtWrench(){
 function checkPlayerAtAmmo(){
 
     for(i=0; i<ammoLocationsTotal; i++){
-        if(playerX == ammoLocations[0][i] && playerY == ammoLocations[1][i] ){    
-
-            playerAtAmmo = true;
-            return playerAtAmmo
-
-        }
-
-        else{
-            playerAtAmmo = false;
+        if(playerX == ammoLocations[0][i] && playerY == ammoLocations[1][i] ){
             
+            ctx.fillStyle = "grey"
+            ctx.fillText(playerAmmo,650,665)
+            playerAmmo += 2
+            ctx.fillStyle="black"
+            ctx.fillText(playerAmmo,650,665);
+            ammoLocations[0].splice(i,1)
+            ammoLocations[1].splice(i,1)
+
+            ctx.fillStyle = "grey"
+            ctx.fillText(playerScore,750,665)
+            playerScore += 250
+            ctx.fillStyle="black"
+            ctx.fillText(playerScore,750,665);
+
         }
+
+
     }
 
 }
 
+
+
+function checkPlayerAtBase(){
+    if(playerX == armyBaseLocationX && playerY == armyBaseLocationY){
+        openVictory()
+
+    }
+}
+
+//End of player position check section
+
+//Start of combat section
+
 var engagedTank = ""
 
 function openCombat(enemyEngaged){
+    playerEngaged = true
     combatMenu.classList.add("active")
     $("#run-button").click(function(){
         closeCombat()
@@ -346,6 +448,7 @@ function openCombat(enemyEngaged){
     $("#enemy-health").text("Enemy health: " + engagedTank.health)
     $("#enemy-attack").text("Enemy attack: " + engagedTank.attack)
 
+
 }
 
 $("#attack-button").click(function(){
@@ -354,9 +457,20 @@ $("#attack-button").click(function(){
     $("#attack-button").removeAttr("disabled")
     },6000)
 
-    engagedTank.health -= playerAttack
-    $("#enemy-health").text("Enemy health: " + engagedTank.health)
-    $("#combat-status").text("You've hit the enemy!")
+    if (playerAmmo > 0){
+        ctx.fillStyle = "grey"
+        ctx.fillText(playerAmmo,650,665)
+        engagedTank.health -= playerAttack
+        playerAmmo -= 1
+        ctx.fillStyle="black"
+        ctx.fillText(playerAmmo,650,665);
+        $("#enemy-health").text("Enemy health: " + engagedTank.health)
+        $("#combat-status").text("You've hit the enemy!")
+
+    } else if(playerAmmo == 0){
+        $("#combat-status").text("You're out of ammo!")
+        
+    }
     
     var enemyHitChance = Math.floor(Math.random()*101)
 
@@ -366,6 +480,13 @@ $("#attack-button").click(function(){
         setTimeout(function(){
             $("#combat-status").text("You defeated the enemy tank!")
         },2000)
+
+        ctx.fillStyle = "grey"
+        ctx.fillText(playerScore,750,665)
+        playerScore += 1000
+        ctx.fillStyle="black"
+        ctx.fillText(playerScore,750,665);
+
         setTimeout(closeCombat,3000)
 
     } else{
@@ -377,7 +498,15 @@ $("#attack-button").click(function(){
                 console.log(playerHealth)
                 clearHealthBar()
                 healthBar()
+                if(playerHealth<=0){
+                    setTimeout(function(){
+                        closeCombat()
+                        openDefeat()
+                    },1000)
+                }
             }, 3000)
+            
+
     
         } else{
             setTimeout(function(){
@@ -392,11 +521,13 @@ $("#attack-button").click(function(){
 
 function closeCombat(){
     combatMenu.classList.remove("active")
+    playerEngaged = false
 
 }
 
+//End of combat section
 
-
+//Start of loading section
 function loadingTime(){
     var loadingTime = setTimeout(loadGame , 2800);
 }
@@ -422,3 +553,4 @@ $(function(){
     loadingTime();
     
 });
+//End of loading section

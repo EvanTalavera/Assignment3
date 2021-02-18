@@ -222,7 +222,7 @@ li{
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background-color: #B7B7A4;
-    width: 200px;
+    width: 300px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
@@ -237,7 +237,7 @@ li{
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
     background-color: #B7B7A4;
-    width: 200px;
+    width: 300px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
@@ -253,7 +253,7 @@ li{
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background-color: #B7B7A4;
-    width: 200px;
+    width: 300px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
@@ -268,7 +268,7 @@ li{
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
     background-color: #B7B7A4;
-    width: 200px;
+    width: 300px;
     height: 200px;
     font-family: Lucida Sans Typewriter;
     border: 3px solid black;
