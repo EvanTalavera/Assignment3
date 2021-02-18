@@ -70,12 +70,12 @@ armyBaseLocationY = 25;
 
 var engagedStatus = checkPlayerAtEnemyTank()
 
-playerSprite.src ="playerSprite.png";
-town.src = "Town.png";
-enemyTank.src = "Enemy Tank.png";
-wrench.src = "Wrench.png";
-ammo.src = "Ammo.png"
-base.src = "Army Base.png"
+playerSprite.src ="images/playerSprite.png";
+town.src = "images/Town.png";
+enemyTank.src = "images/Enemy Tank.png";
+wrench.src = "images/Wrench.png";
+ammo.src = "images/Ammo.png"
+base.src = "images/Army Base.png"
 
 function drawSprite(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight){
     ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destinationX, destinatonY, destinationWidth,destinationHeight)
@@ -160,7 +160,7 @@ $('html').keydown(function(e){
         if(playerFuel<=0){
             openDefeat()
         }
-        
+
         }
 
     }
