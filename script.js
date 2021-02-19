@@ -20,7 +20,6 @@ var playerAtTown = false;
 var playerAtEnemyTank = false;
 var playerAtWrench = false;
 var playerAtAmmo = false;
-var sb = document.getElementById("scoreboard");
 
 class Enemy{
     constructor(number,health,attack){
@@ -532,16 +531,16 @@ function recordScore(){
    var highScore = JSON.parse(localStorage.getItem('score') || '[]');
    highScore.push(playerScore);
    localStorage.setItem('score', JSON.stringify(highScore));
-   console.log("Score Recorded");
-   updateScoreBoard();
    console.log("Score Updated");
+   updateScoreBoard();
 }
 
 function updateScoreBoard(){
+    var sb = document.getElementById("scoreboard");
     var retrievedScores = JSON.parse(localStorage.getItem('score'));
 
     for (var i = 0; i < retrievedScores.length; i++){
-        sb.innerHTML += "<tr><td>" + i + "</td><td>" + retrievedScores[i].score + "</td></tr>";
+        sb.innerHTML += "<tr><td>" + retrievedScores[i].score + "</td></tr>";
     }
 
 }
