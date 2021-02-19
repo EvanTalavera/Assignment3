@@ -62,6 +62,7 @@ Wiki page - Player can check the various stats of the different vehicles availab
 
 
 ## Credits
+Credits to Wan Naqiuddin for designing the game's various elements and icons
 
 ### Content
 
