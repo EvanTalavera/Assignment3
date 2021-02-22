@@ -72,4 +72,8 @@ Credits to Wan Naqiuddin for designing the game's various elements and icons
 
 ### Acknowledgements
 
+Tutorials on Canvas:
+https://www.youtube.com/watch?v=eI9idPTT0c4&ab_channel=ChrisCourses
+https://www.youtube.com/watch?v=EYf_JwzwTlQ&ab_channel=Frankslaboratory
+
 
